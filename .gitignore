@@ -1,0 +1,11 @@
+*.DS_Store
+.vscode/
+
+xcuserdata/
+Pods/
+*.xcworkspace/
+*.xcodeproj
+
+# Generated files
+iOSBaseProject/Resources/Asset.swift
+iOSBaseProject/Resources/Strings/Strings.swift

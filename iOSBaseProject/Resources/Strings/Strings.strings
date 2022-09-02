@@ -1,0 +1,9 @@
+/* 
+  Strings.strings
+  iOSBaseProject
+
+  Created by Huy Pham on 02/09/2022.
+  
+*/
+
+"Error.unknown" = "Unknown error";

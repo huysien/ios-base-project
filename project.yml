@@ -1,0 +1,107 @@
+name: iOSBaseProject
+options:
+  deploymentTarget:
+    iOS: 13.0
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    ALWAYS_SEARCH_USER_PATHS: NO
+    GENERATE_INFOPLIST_FILE: YES
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+    Release:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
+targets:
+  iOSBaseProject:
+    type: application
+    platform: iOS
+    sources:
+      - iOSBaseProject
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: iOSBaseProject/Info.plist
+        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+        INFOPLIST_KEY_UIRequiresFullScreen: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+        MARKETING_VERSION: 1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.huypham.iOSBaseProject
+        PRODUCT_NAME: '$(TARGET_NAME)'
+        TARGETED_DEVICE_FAMILY: '1,2'
+        SDKROOT: iphoneos
+  iOSBaseProjectTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - iOSBaseProjectTests
+    dependencies:
+      - target: iOSBaseProject
+    settings:
+      base:
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: YES
+        BUNDLE_LOADER: '$(TEST_HOST)'
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.huypham.iOSBaseProjectTests
+        PRODUCT_NAME: '$(TARGET_NAME)'
+        TEST_HOST: '$(BUILT_PRODUCTS_DIR)/iOSBaseProject.app/iOSBaseProject'
+        TARGETED_DEVICE_FAMILY: '1,2'
+        SDKROOT: iphoneos
+        SWIFT_EMIT_LOC_STRINGS: NO
+        SWIFT_VERSION: 5.0
+  iOSBaseProjectUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - iOSBaseProjectUITests
+    dependencies:
+      - target: iOSBaseProject
+    settings:
+      base:
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: YES
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: YES
+        MARKETING_VERSION: 1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.huypham.iOSBaseProjectUITests
+        PRODUCT_NAME: '$(TARGET_NAME)'
+        SWIFT_EMIT_LOC_STRINGS: NO
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: '1,2'
+        TEST_TARGET_NAME: iOSBaseProject
+        SDKROOT: iphoneos
+schemes:
+  iOSBaseProject:
+    build:
+      targets:
+        iOSBaseProject: all
+        iOSBaseProjectTests:
+          - test
+        iOSBaseProjectUITests:
+          - test
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+    profile:
+      config: Debug
+    run:
+      config: Debug
+    test:
+      config: Debug
+      coverageTargets:
+        - iOSBaseProject
+      gatherCoverageData: true
+      targets:
+        - iOSBaseProjectTests
+        - iOSBaseProjectUITests

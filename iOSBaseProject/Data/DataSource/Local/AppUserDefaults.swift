@@ -30,6 +30,5 @@ private class AppUserDefaultsImpl: AppUserDefaults {
             userDefaults.set(value, forKey: accessTokenKey)
             userDefaults.synchronize()
         }
-        APIProvider.configure()
     }
 }

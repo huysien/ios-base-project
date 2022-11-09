@@ -28,7 +28,7 @@ Gemfile.lock
 Open Mintfile, there are two libraries which use in this project:
 ```
 yonaskolb/XcodeGen
-SwiftGen/SwiftGen // To generate resources
+SwiftGen/SwiftGen
 ```
 `XcodeGen` is used to generate `.xcodeproj` file based on what we describe in `project.yml` file. So we can add `.xcodeproj` into `.gitignore`.
 It can reduce huge conflicts in `.xcodeproj` file when each member adds folders, and files to the project.

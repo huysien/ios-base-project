@@ -6,9 +6,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'iOSBaseProject' do
   
   pod 'Kingfisher'
-  pod 'Moya/RxSwift'
-  pod 'ObjectMapper'
-  pod 'SwiftyJSON'
+  pod 'RxSwift'
+  pod 'Moya'
   pod 'IQKeyboardManager'
 
 end

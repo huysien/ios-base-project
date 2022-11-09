@@ -5,6 +5,7 @@ enum API {
 
     case test(id: Int64, text: String)
     case uploadFile(data: Data)
+    case getUser
 }
 
 extension API: TargetType {
@@ -19,12 +20,14 @@ extension API: TargetType {
             return "/api/test/\(id)"
         case .uploadFile:
             return "/api/static/upload"
+        case .getUser:
+            return "/api/user"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .test:
+        case .test, .getUser:
             return .get
         case .uploadFile:
             return .post
@@ -51,7 +54,7 @@ extension API: TargetType {
         switch self {
         case .test(_, let text):
             return ["text": text]
-        case .uploadFile:
+        case .uploadFile, .getUser:
             return [:]
         }
     }

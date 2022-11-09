@@ -1,29 +1,23 @@
 import Foundation
 import Moya
 
-struct APIProvider {
-
-    static var provider: MoyaProvider<API> = createProvider()
-
-    static func configure() {
-        provider = createProvider()
+class APIProviderFactory {
+    
+    func makeAPIProvider() -> APIProvider {
+        APIProviderImpl()
     }
+}
 
-    private static func createProvider() -> MoyaProvider<API> {
-        let appUserDefaults = AppUserDefaultsFactory().makeAppUserDefaults()
-        let plugins: [PluginType] = [
-            NetworkLoggerPlugin(
-                configuration: .init(
-                    formatter: .init(responseData: JSONResponseDataFormatter),
-                    logOptions: .verbose
-                )
-            ),
-            AccessTokenPlugin(tokenClosure: { _ in appUserDefaults.accessToken ?? "" })
-        ]
-        return MoyaProvider<API>(plugins: plugins)
-    }
+protocol APIProvider {
+    
+    func getProvider() -> MoyaProvider<API>
+}
 
-    private static func JSONResponseDataFormatter(_ data: Data) -> String {
+private class APIProviderImpl {
+    
+    private let appUserDefaults: AppUserDefaults = AppUserDefaultsFactory().makeAppUserDefaults()
+    
+    private let jsonFormatter: (Data) -> String = { data in
         do {
             let dataAsJSON = try JSONSerialization.jsonObject(with: data)
             let prettyData = try JSONSerialization.data(withJSONObject: dataAsJSON, options: .prettyPrinted)
@@ -31,5 +25,23 @@ struct APIProvider {
         } catch {
             return String(data: data, encoding: .utf8) ?? ""
         }
+    }
+}
+
+extension APIProviderImpl: APIProvider {
+    
+    func getProvider() -> MoyaProvider<API> {
+        var plugins: [PluginType] = [
+            NetworkLoggerPlugin(
+                configuration: .init(
+                    formatter: .init(responseData: jsonFormatter),
+                    logOptions: .verbose
+                )
+            )
+        ]
+        if let accessToken = appUserDefaults.accessToken {
+            plugins.append(AccessTokenPlugin(tokenClosure: { _ in accessToken }))
+        }
+        return MoyaProvider<API>(plugins: plugins)
     }
 }
